@@ -1,6 +1,9 @@
 <script setup>
 
 import {reactive,ref} from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const LoginInput = reactive({
     email: '',
@@ -13,7 +16,7 @@ function Login() {
     const LoginData = localStorage.getItem('registerObject');
     const jsonString = JSON.parse(LoginData);
     if(jsonString.email === LoginInput.email && jsonString.password === LoginInput.password) {
-        window.location.href = '/dashboard';
+       router.push('/dashboard');
     }
     else{
         LoginMSG.value = "Wrong credentials";
