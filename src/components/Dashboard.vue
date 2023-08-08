@@ -1,17 +1,21 @@
 <script setup>
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 const LoginData = localStorage.getItem('registerObject');
 const jsonString = JSON.parse(LoginData);
 
 function logout(){
- window.location.href = '/register'
+    router.push('/register');
 }
 
 </script>
 
 <template>
 <div class="welcome">
-    <p class="welcomeMSG">Welcome {{ jsonString.name }} ! </p>
+    <p class="welcomeMSG">Welcome {{ jsonString.name }} </p>
 </div>
 
  <button @click="logout()"  class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">Logout</button><br><br>
