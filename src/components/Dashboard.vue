@@ -1,24 +1,20 @@
 <script setup>
+    import {authStore} from '../store/store.js';
+    import { useRouter } from 'vue-router';
 
-import { useRouter } from 'vue-router';
+    const router = useRouter();
+    const auth = authStore();
 
-const router = useRouter();
-
-const LoginData = localStorage.getItem('registerObject');
-const jsonString = JSON.parse(LoginData);
-
-function logout(){
-    router.push('/register');
-}
-
+    const LoginData = localStorage.getItem('registerObject');
+    const jsonString = JSON.parse(LoginData);
 </script>
 
 <template>
-<div class="welcome">
-    <p class="welcomeMSG">Welcome {{ jsonString.name }} </p>
-</div>
+    <div class="welcome">
+        <p class="welcomeMSG">Welcome {{ jsonString.name }} </p>
+    </div>
 
- <button @click="logout()"  class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">Logout</button><br><br>
+    <button @click="auth.logout()"  class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">Logout</button><br><br>
 
 </template>
 

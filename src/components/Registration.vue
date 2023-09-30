@@ -1,6 +1,8 @@
 <script setup>
 
 import {reactive,ref} from 'vue';
+import {authStore} from '../store/store.js';
+const auth = authStore();
 
 const registerObject = reactive({
     name: '',
@@ -8,23 +10,6 @@ const registerObject = reactive({
     password: '',
     confirmPassword: ''
 });
-
-const passwordMsg = ref("");
-const RegiSuccessMsg = ref("");
-
-function matchPassword(){
-    if(registerObject.password != registerObject.confirmPassword){
-        passwordMsg.value = "Password do not match";
-    }else{
-        passwordMsg.value = "";
-    }
-}
-
-function setRegisterObject(){
-    const jsonString = JSON.stringify(registerObject);
-    localStorage.setItem('registerObject', jsonString);
-    RegiSuccessMsg.value = "Registered Successfully";
-}
     
 
 </script>
@@ -50,12 +35,12 @@ function setRegisterObject(){
         </div>
           <div>
           <label class="text-black block mb-1 font-semibold">Confirm Password</label>
-          <input type="password" @keyup="matchPassword()" v-model="registerObject.confirmPassword" class="text-black bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
-          <p class="text-red-500">{{ passwordMsg }}</p>
+          <input type="password" @keyup="auth.matchPassword(registerObject.password, registerObject.confirmPassword)" v-model="registerObject.confirmPassword" class="text-black bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+          <p class="text-red-500">{{ auth.passwordMsg }}</p>
         </div>
       </div>
-      <button @click.prevent="setRegisterObject()" class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">Register</button><br><br>
-      <p class="text-green-500">{{ RegiSuccessMsg }}</p>
+      <button @click.prevent="auth.setRegisterObject(registerObject)" class="mt-4 w-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-indigo-100 py-2 rounded-md text-lg tracking-wide">Register</button><br><br>
+      <p class="text-green-500">{{ auth.RegiSuccessMsg }}</p>
     </div>
   </form>
 </div>
